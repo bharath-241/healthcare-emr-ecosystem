@@ -1,0 +1,103 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: appointment-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/healthcare_appointment_db
+    username: root
+    password: Malli@160902
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  flyway:
+    enabled: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+# =========================================================
+# EUREKA CLIENT
+# =========================================================
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+
+# =========================================================
+# RESILIENCE4J
+# =========================================================
+
+resilience4j:
+
+  # =======================================================
+  # CIRCUIT BREAKER
+  # =======================================================
+
+  circuitbreaker:
+    instances:
+
+      doctorService:
+        register-health-indicator: true
+
+        # Number of calls considered
+        sliding-window-size: 5
+
+        # Minimum calls before failure rate is calculated
+        minimum-number-of-calls: 3
+
+        # Circuit opens when 50% calls fail
+        failure-rate-threshold: 50
+
+        # Circuit remains OPEN for 10 seconds
+        wait-duration-in-open-state: 10s
+
+        # Automatically move from OPEN to HALF_OPEN
+        automatic-transition-from-open-to-half-open-enabled: true
+
+        # Number of test calls in HALF_OPEN
+        permitted-number-of-calls-in-half-open-state: 2
+
+
+  # =======================================================
+  # RETRY
+  # =======================================================
+
+  retry:
+    instances:
+
+      doctorService:
+        # Maximum attempts including first call
+        max-attempts: 3
+
+        # Wait 1 second between attempts
+        wait-duration: 1s
+
+
+# =========================================================
+# ACTUATOR
+# =========================================================
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+  endpoint:
+    health:
+      show-details: always
