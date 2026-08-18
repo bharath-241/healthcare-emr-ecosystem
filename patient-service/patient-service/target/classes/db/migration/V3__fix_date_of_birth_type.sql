@@ -1,0 +1,2 @@
+ALTER TABLE patients
+MODIFY COLUMN date_of_birth DATE NOT NULL;

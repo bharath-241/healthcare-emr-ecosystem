@@ -1,0 +1,14 @@
+com\healthcare\patient\entity\MedicalHistory.class
+com\healthcare\patient\dto\PatientResponse.class
+com\healthcare\patient\PatientServiceApplication.class
+com\healthcare\patient\repository\MedicalHistoryRepository.class
+com\healthcare\patient\controller\MedicalHistoryController.class
+com\healthcare\patient\repository\PatientRepository.class
+com\healthcare\patient\security\JwtService.class
+com\healthcare\patient\service\MedicalHistoryService.class
+com\healthcare\patient\service\PatientService.class
+com\healthcare\patient\dto\PatientRequest.class
+com\healthcare\patient\security\SecurityConfig.class
+com\healthcare\patient\security\JwtAuthenticationFilter.class
+com\healthcare\patient\controller\PatientController.class
+com\healthcare\patient\entity\Patient.class
